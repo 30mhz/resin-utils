@@ -3,6 +3,18 @@ Utilities for working with Resin.io
 
 ## resin_devices_update
 
+### Requirements
+
+Install resin with
+
+```pip install resin```
+
+or
+
+```pip2.7 install resin```
+
+### Running
+
 Update the devices in an application (or a particular device).
 
 The script will prompt for each device in the application which is online if it should be updated or not. It overrides the device lock (/data/resin-updates.lock).
