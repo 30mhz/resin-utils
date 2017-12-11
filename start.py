@@ -28,11 +28,18 @@ def application_update():
     print ("Application update:")
 
 def application_check():
-    print ("Check Application settings:")
+    system("clear") # Linux - OSX only :(
+    print ("Select Application to check settings:")
+    print #newline
+    print ("ID\tNAME")
     import application
     applications, shortlist = application.list()
     for items in shortlist:
-        print (items)
+        print ("%s\t%s" % (items[1], items[0]))
+    print #newline
+    ID = input("Please enter application ID: ")
+    system("clear") # Linux - OSX only :(
+    application.check(ID)
     readkey()
 
 
