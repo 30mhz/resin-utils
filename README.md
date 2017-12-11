@@ -9,13 +9,13 @@ Install resin with
 
 ~~~```pip install resin```~~~
 
-pip install git+https://github.com/resin-io/resin-sdk-python.git
+```pip install git+https://github.com/resin-io/resin-sdk-python.git```
 
 or
 
 ~~~```pip2.7 install resin```~~~
 
-pip2.7 install git+https://github.com/resin-io/resin-sdk-python.git
+```pip2.7 install git+https://github.com/resin-io/resin-sdk-python.git```
 
 git@github.com:30mhz/resin-utils.git
 
