@@ -9,59 +9,46 @@ from resin import Resin
 resin = Resin()
 
 def logout():
-    resin.auth.log_out()
-    print("Logged out")
-    exit()
+    return
+
+def devlist():
+    return
 
 def details():
-    from devices import details
-    system("clear") # Linux - OSX only :(
-    UUID = raw_input("Input your device UUID: ")
-    try:
-        details(UUID)
-        readkey()
-    except:
-        print("UUID not corect or device not found. Press a key to continue.")
-        readkey()
+    return
 
 def application_update():
-    print ("Application update:")
+    return
 
 def application_check():
-    system("clear") # Linux - OSX only :(
-    print ("Select Application to check settings:")
-    print #newline
-    print ("ID\tNAME")
-    import application
-    applications, shortlist = application.list()
-    for items in shortlist:
-        print ("%s\t%s" % (items[1], items[0]))
-    print #newline
-    ID = input("Please enter application ID: ")
-    system("clear") # Linux - OSX only :(
-    application.check(ID)
-    readkey()
+    return
 
+def update_device():
+    return
 
 def quit():
+    system("clear") # Linux - OSX only :(
     exit()
 
 while True:
     options = {
         "9" : logout,
         "0" : quit,
-        "1" : details,
-        "4" : application_check
+        "1" : devlist,
+        "2" : details,
+        "5" : application_check,
+        "3" : update_device
         }
 
     system("clear") # Linux - OSX only :(
 
-    print ("1 Check device details (UUID)")
-    print ("2 Update one device")
-    print ("3 Update an entire application (One by one)")
-    print ("4 Check application settings")
-    print ("5 Swith rolling updates")
-    print ("6 Set base commit application")
+    print ("1 Get device list (UUID)")
+    print ("2 Check device details (UUID)")
+    print ("3 Update one device")
+    print ("4 Update an entire application (One by one)")
+    print ("5 Check application settings")
+    print ("6 Swith rolling updates")
+    print ("7 Set base commit application")
     print ("9 Logout")
     print ("0 Quit")
     print
@@ -74,10 +61,3 @@ while True:
             print "Invalid option"
         else:
             break
-
-        # # while True:
-        # try:
-        #
-        # except:
-        #     print "Invalid option"
-        # sleep(1)
