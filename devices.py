@@ -16,7 +16,7 @@ def get_by_application(ApplicationName):
         devices = None
     return devices
 
-def list():
+def devlist():
     devices = get()
     devices_uuid = {}
     devices_names = {}
@@ -24,12 +24,16 @@ def list():
         devices_uuid[items["uuid"]] = items
         devices_names[items["name"]] = items["uuid"]
     devices_names = sorted(devices_names.items(), key=operator.itemgetter(0))
-    return devices_uuid, devices_names
+    return devices_names
 
 def printlist(devices_names):
     for items in devices_names:
         print [items][0][0]
     return
+
+def update(UUID, BuildID):
+    status = resin.models.device.set_to_build('UUID', 'BuildID')
+    return status
 
 def getApplicationDetails(applicationid):
     return resin.models.application.get_by_id(applicationid)["app_name"]
