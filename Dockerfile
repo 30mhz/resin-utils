@@ -6,6 +6,8 @@ FROM python:2
 
 RUN pip install git+https://github.com/resin-io/resin-sdk-python.git
 
+RUN pip install readchar
+
 COPY . /resin-utils
 
 CMD ["python", "/resin-utils/start.py"]

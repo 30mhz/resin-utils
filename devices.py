@@ -1,11 +1,19 @@
 from os import system
+import operator
 from resin import Resin
 resin = Resin()
 
-import operator
 
 def get():
     devices = resin.models.device.get_all()
+    return devices
+
+def get_by_application(ApplicationName):
+    try:
+        devices = resin.models.device.get_all_by_application(ApplicationName)
+    except:
+        print ("Application not found.")
+        devices = None
     return devices
 
 def list():
@@ -31,7 +39,7 @@ def getBuildDetails(buildid):
     if buildid is None:
         return "None"
     data = resin.models.build.get(buildid["__id"])["d"][0]
-    details = str(buildid) + ", " + data["commit_hash"] + ", " + data["push_timestamp"]
+    details = buildid["__id"] + ", " + data["commit_hash"] + ", " + data["push_timestamp"]
     return details
 
 def details(uuid):
@@ -58,5 +66,5 @@ def details(uuid):
     print ("Created on: %s" % data["created_at"])
     print
     print
-    print "Press enter to continue"
+    print "Press a key to continue"
     return 0

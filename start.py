@@ -24,19 +24,37 @@ def details():
         print("UUID not corect or device not found. Press a key to continue.")
         readkey()
 
+def application_update():
+    print ("Application update:")
+
+def application_check():
+    print ("Check Application settings:")
+    import application
+    applications, shortlist = application.list()
+    for items in shortlist:
+        print (items)
+    readkey()
+
+
 def quit():
     exit()
 
 while True:
     options = {
         "9" : logout,
-        "1" : details,
         "0" : quit,
+        "1" : details,
+        "4" : application_check
         }
 
     system("clear") # Linux - OSX only :(
 
     print ("1 Check device details (UUID)")
+    print ("2 Update one device")
+    print ("3 Update an entire application (One by one)")
+    print ("4 Check application settings")
+    print ("5 Swith rolling updates")
+    print ("6 Set base commit application")
     print ("9 Logout")
     print ("0 Quit")
     print
