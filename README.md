@@ -7,11 +7,17 @@ Utilities for working with Resin.io
 
 Install resin with
 
-```pip install resin```
+~~~```pip install resin```~~~
+
+```pip install git+https://github.com/resin-io/resin-sdk-python.git```
 
 or
 
-```pip2.7 install resin```
+
+~~~```pip2.7 install resin```~~~
+
+```pip2.7 install git+https://github.com/resin-io/resin-sdk-python.git```
+
 
 ### Running
 
