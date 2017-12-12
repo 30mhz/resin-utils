@@ -28,7 +28,8 @@ def application_update():
     return
 
 def application_check():
-    # import application_check
+    from application import printapplicationdetails
+    printapplicationdetails()
     return
 
 def update_device():

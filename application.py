@@ -1,5 +1,8 @@
-import general
-
+from os import system
+from readchar import readkey
+import operator
+from resin import Resin
+resin = Resin()
 
 def get():
     applications = resin.models.application.get_all()
@@ -41,3 +44,21 @@ def check(ID):
     # Local IP: 192.168.8.82
     # Public IP: 185.3.177.98
     return data
+
+def printapplicationdetails():
+    system("clear") # Linux - OSX only :(
+    print ("Select Application to check settings:")
+    print #newline
+    print ("ID\tNAME")
+    applications, shortlist = list()
+    for items in shortlist:
+        print ("%s\t%s" % (items[1], items[0]))
+    print #newline
+    ID = input("Please enter application ID: ")
+    try:
+        system("clear") # Linux - OSX only :(
+        check(ID)
+    except:
+        print "Retrieve error."
+        print "Press a key to continue."
+    readkey()
