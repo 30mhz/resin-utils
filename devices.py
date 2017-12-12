@@ -53,7 +53,6 @@ def getapplicationid(UUID):
     return resin.models.device.get(UUID)["application"]["__id"]
 
 def details(uuid):
-    system("clear") # Linux - OSX only :(
     data = resin.models.device.get(uuid)
     print ("Device name: %s" % data["name"])
     print ("ID: %s" % data["id"])
@@ -89,15 +88,16 @@ def printdetails():
     system("clear") # Linux - OSX only :(
     print ("Check device UUID on dashboard or go one step back and select \"Get device list\"")
     UUID = raw_input("Input your device UUID: ")
-    # try:
-    details(UUID)
-        # print
-        # print
-        # print "Press a key to continue"
-    readkey()
-    # except:
-    #     print("UUID not corect or device not found. Press a key to continue.")
-    #     readkey()
+    system("clear") # Linux - OSX only :(
+    try:
+        details(UUID)
+        print
+        print
+        print "Press a key to continue"
+        readkey()
+    except:
+        print("UUID not corect or device not found. Press a key to continue.")
+        readkey()
 
 def setbuildUI(UUID, BuildHash):
     print
@@ -106,20 +106,19 @@ def setbuildUI(UUID, BuildHash):
     appID = getapplicationid(UUID)
     print "In application %s" % appID
     print "To build hash %s" % BuildHash
-    from build import getBuildID
-    BuildID = getBuildID(appID, BuildHash)
-    print "That is buildnumber %s" % BuildID
     try:
+        from build import getBuildID
+        BuildID = getBuildID(appID, BuildHash)
+        print "That is buildnumber %s" % BuildID
         setbuild(UUID, BuildID)
-        print "OK"
+        print "Setting value: Done"
         print
         details(UUID)
     except:
-        print "failed"
+        print "Setting value: failed"
     print
     print
     print "Press a key to continue"
-    readkey()
     return
 
 def setbuild(UUID, BuildID):
