@@ -33,7 +33,8 @@ def application_check():
     return
 
 def update_device():
-    # import update_device
+    from devices import setbuildinteractive
+    setbuildinteractive()
     return
 
 def quit():

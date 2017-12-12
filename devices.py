@@ -43,9 +43,15 @@ def getApplicationDetails(applicationid):
 def getBuildDetails(buildid):
     if buildid is None:
         return "None"
-    data = resin.models.build.get(buildid["__id"])["d"][0]
+    try:
+        data = resin.models.build.get(buildid["__id"])["d"][0]
+    excep:
+        data = resin.models.build.get(buildid[__deferred]["__id"])
     details = buildid["__id"] + ", " + data["commit_hash"] + ", " + data["push_timestamp"]
     return details
+
+def getapplicationid(UUID):
+    return resin.models.device.get(UUID)["application"]["__id"]
 
 def details(uuid):
     system("clear") # Linux - OSX only :(
@@ -62,17 +68,15 @@ def details(uuid):
     print ("Public IP: %s" % data["public_address"])
     print
     print ("Application: %s" % getApplicationDetails(data["application"]["__id"]))
-    print ("Build set: %s" % getBuildDetails(data["build"]))
+    # print ("Build set: %s" % getBuildDetails(data["build"]))
+    print data["build"]
     print
     print ("Commit: %s" % data["commit"])
     print ("OS: %s" % data["os_version"])
     print ("Supervisor: %s" % data["supervisor_version"])
     print
     print ("Created on: %s" % data["created_at"])
-    print
-    print
-    print "Press a key to continue"
-    return 0
+    return data["application"]["__id"]
 
 def devicelist():
     system("clear") # Linux - OSX only :(
@@ -87,9 +91,65 @@ def printdetails():
     system("clear") # Linux - OSX only :(
     print ("Check device UUID on dashboard or go one step back and select \"Get device list\"")
     UUID = raw_input("Input your device UUID: ")
+    # try:
+    details(UUID)
+        # print
+        # print
+        # print "Press a key to continue"
+    readkey()
+    # except:
+    #     print("UUID not corect or device not found. Press a key to continue.")
+    #     readkey()
+
+def setbuildUI(UUID, BuildHash):
+    print
+    print "Setting build:"
+    print "Device UUID %s" % UUID
+    appID = getapplicationid(UUID)
+    print "In application %s" % appID
+    print "To build hash %s" % BuildHash
+    from build import getBuildID
+    BuildID = getBuildID(appID, BuildHash)
+    print "That is buildnumber %s" % BuildID
     try:
+        setbuild(UUID, BuildID)
+        print "OK"
+        print
         details(UUID)
-        readkey()
     except:
-        print("UUID not corect or device not found. Press a key to continue.")
+        print "failed"
+    print
+    print
+    print "Press a key to continue"
+    readkey()
+    return
+
+def setbuild(UUID, BuildID):
+    resin.models.device.set_to_build(UUID, BuildID)
+    return
+
+def setbuildinteractive():
+    system("clear") # Linux - OSX only :(
+    UUID = raw_input("Enter device UUID to update: ")
+    system("clear") # Linux - OSX only :(
+    try:
+        applicationid = details(UUID)
+    except:
+        print "Device not found. Press a key to continue."
         readkey()
+        return
+    print
+    from build import getallbuilds
+    print "Available build options:"
+    print "[Hash]\t\t\t\t\t\t[Timestamp]\t\t\t[ID]"
+    availablebuild = getallbuilds(applicationid)
+    for items in availablebuild:
+        if items["status"]=="success":
+            print ("%s\t%s\t%s" % (items["commit_hash"], items["push_timestamp"], items["id"]))
+    # print getallbuilds(applicationid)
+    print
+    COMMIT = raw_input("Enter hash to set: ")
+    setbuildUI(UUID, COMMIT)
+
+    readkey()
+    # resin.models.device.set_to_build('8deb12a58e3b6d3920db1c2b6303d1ff32f23d5ab99781ce1dde6876e8d143', '123098')
