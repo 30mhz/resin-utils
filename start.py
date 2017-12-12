@@ -1,9 +1,10 @@
 
 # Login
-import login
+from login import login
+login()
+
 from readchar import readkey
 from os import system
-
 from resin import Resin
 resin = Resin()
 
@@ -13,11 +14,13 @@ def logout():
     return
 
 def devlist():
-    # import devlist
+    from devices import devicelist
+    devicelist()
     return
 
 def details():
-    # import details
+    from devices import printdetails
+    printdetails()
     return
 
 def application_update():
