@@ -43,12 +43,11 @@ def getApplicationDetails(applicationid):
 def getBuildDetails(buildid):
     if buildid is None:
         return "None"
-    try:
-        data = resin.models.build.get(buildid["__id"])["d"][0]
-    excep:
-        data = resin.models.build.get(buildid[__deferred]["__id"])
-    details = buildid["__id"] + ", " + data["commit_hash"] + ", " + data["push_timestamp"]
+    data = resin.models.build.get(buildid["__id"])
+    details = "\n\n\tBuild ID: \t%s \n\tBuild hash: \t%s \n\tDate: \t\t%s" % (buildid["__id"], data["d"][0]["commit_hash"], data["d"][0]["push_timestamp"])
     return details
+
+
 
 def getapplicationid(UUID):
     return resin.models.device.get(UUID)["application"]["__id"]
@@ -68,8 +67,7 @@ def details(uuid):
     print ("Public IP: %s" % data["public_address"])
     print
     print ("Application: %s" % getApplicationDetails(data["application"]["__id"]))
-    # print ("Build set: %s" % getBuildDetails(data["build"]))
-    print data["build"]
+    print ("Build set: %s" % getBuildDetails(data["build"]))
     print
     print ("Commit: %s" % data["commit"])
     print ("OS: %s" % data["os_version"])
