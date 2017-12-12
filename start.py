@@ -1,31 +1,35 @@
+
 # Login
 import login
-
 from readchar import readkey
 from os import system
 
+from resin import Resin
+resin = Resin()
+
 def logout():
-    import logout
+    from logout import logout
+    logout()
     return
 
 def devlist():
-    import devlist
+    # import devlist
     return
 
 def details():
-    import details
+    # import details
     return
 
 def application_update():
-    import application_update
+    # import application_update
     return
 
 def application_check():
-    import application_check
+    # import application_check
     return
 
 def update_device():
-    import update_device
+    # import update_device
     return
 
 def quit():
