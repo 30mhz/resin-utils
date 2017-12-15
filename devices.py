@@ -9,9 +9,9 @@ def get():
     devices = resin.models.device.get_all()
     return devices
 
-def get_by_application(ApplicationName):
+def get_by_application_id(ID):
     try:
-        devices = resin.models.device.get_all_by_application(ApplicationName)
+        devices = resin.models.device.get_all_by_application_id(ID)
     except:
         print ("Application not found.")
         devices = None
@@ -125,8 +125,6 @@ def setbuild(UUID, BuildID):
     resin.models.device.set_to_build(UUID, BuildID)
     return
 
-
-
 def setbuildinteractive():
     system("clear") # Linux - OSX only :(
     UUID = raw_input("Enter device UUID to update: ")
@@ -147,3 +145,43 @@ def setbuildinteractive():
 
     readkey()
     # resin.models.device.set_to_build('8deb12a58e3b6d3920db1c2b6303d1ff32f23d5ab99781ce1dde6876e8d143', '123098')
+
+def updateallinteractive():
+    from yesorno import query_yes_no
+    from application import selectapplication, check
+    ID = selectapplication()
+    system("clear")
+    print
+    check(ID)
+    print
+    from build import listAvailableBuilds,getBuildID
+    listAvailableBuilds(ID)
+    print
+    BuildHash = raw_input("Enter build Hash: ")
+    BuildID = getBuildID(ID, BuildHash)
+    devices = get_by_application_id(ID)
+    print devices
+    print "Found {0} devices:".format(len(devices))
+    print
+    print "Commit\t\t\t\t\t\tOnline\tCommit"
+    for device in devices:
+        online = False
+        if device['is_online'] == True:
+            online = True
+        print "{2}\t{1}\t{0}".format(device['name'], online, device['commit'])
+
+    print
+    for device in devices:
+        if online:
+            BuildHash
+            if BuildHash != None and device['build']['__id'] == BuildID:
+                print "[{1}]\nSkipping device, it is already at commit {0}".format(BuildHash, device['name'])
+            else:
+                if 
+                 # ask user if she wants to update it
+                if query_yes_no("\n[{0}]\nDo you want to update the device?".format(device['name'])):
+                    # resin.models.supervisor.update(device['uuid'], device['application']['__id'], force=True)
+                    print
+        else:
+            print ("[{0}]\nSkipping device, it's offline. ".format(device['name']))
+    readkey()

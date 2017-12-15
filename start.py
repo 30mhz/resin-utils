@@ -47,6 +47,11 @@ def set_basecommit():
     setbasecommit()
     return
 
+def do_updateallinteractive():
+    from devices import updateallinteractive
+    updateallinteractive()
+    return
+
 def quit():
     system("clear") # Linux - OSX only :(
     exit()
@@ -60,7 +65,8 @@ while True:
         "5" : application_check,
         "3" : update_device,
         "6" : switch_rolling,
-        "7" : set_basecommit
+        "7" : set_basecommit,
+        "4" : do_updateallinteractive
         }
 
     system("clear") # Linux - OSX only :(
