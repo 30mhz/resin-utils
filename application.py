@@ -86,6 +86,15 @@ def setrollingupdates():
     print "Press a key to continue."
     readkey()
 
+def setcommittroughapi(ID, Commit):
+    import requests
+    endpoint = "https://api.resin.io/v2/application(%s)" % ID
+    data = {"commit":"%s" % Commit}
+    headers = {"Authorization":"Bearer %s" % resin.auth.get_token()}
+
+    return requests.patch(endpoint,data=data,headers=headers).text
+
+
 def setbasecommit():
     ID = selectapplication()
     print
@@ -94,6 +103,12 @@ def setbasecommit():
     import build
     build.listAvailableBuilds(ID)
     print
-    buildID = build.getBuildID(ID, raw_input("Enter build Hash: "))
-    print buildID
+    BuildHash = raw_input("Enter build Hash: ")
+    # Is not implmented in SDK, so API is used.
+    print setcommittroughapi(ID, BuildHash)
+    print
+    check(ID)
+    print
+    print "Default commit changed!"
+    print "Press a key to continue."
     readkey()
