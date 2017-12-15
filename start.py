@@ -37,6 +37,16 @@ def update_device():
     setbuildinteractive()
     return
 
+def switch_rolling():
+    from application import setrollingupdates
+    setrollingupdates()
+    return
+
+def set_basecommit():
+    from application import setbasecommit
+    setbasecommit()
+    return
+
 def quit():
     system("clear") # Linux - OSX only :(
     exit()
@@ -48,7 +58,9 @@ while True:
         "1" : devlist,
         "2" : details,
         "5" : application_check,
-        "3" : update_device
+        "3" : update_device,
+        "6" : switch_rolling,
+        "7" : set_basecommit
         }
 
     system("clear") # Linux - OSX only :(

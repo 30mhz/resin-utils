@@ -15,3 +15,12 @@ def getBuildDetails(APP_ID, COMMIT):
 
 def getBuildID(APP_ID, COMMIT):
     return getBuildDetails(APP_ID, COMMIT)["id"]
+
+def listAvailableBuilds(applicationid):
+    print "Available build options:"
+    print "[Hash]\t\t\t\t\t\t[Timestamp]\t\t\t[ID]"
+    availablebuild = getallbuilds(applicationid)
+    for items in availablebuild:
+        if items["status"]=="success":
+            print ("%s\t%s\t%s" % (items["commit_hash"], items["push_timestamp"], items["id"]))
+    return

@@ -125,6 +125,8 @@ def setbuild(UUID, BuildID):
     resin.models.device.set_to_build(UUID, BuildID)
     return
 
+
+
 def setbuildinteractive():
     system("clear") # Linux - OSX only :(
     UUID = raw_input("Enter device UUID to update: ")
@@ -136,13 +138,8 @@ def setbuildinteractive():
         readkey()
         return
     print
-    from build import getallbuilds
-    print "Available build options:"
-    print "[Hash]\t\t\t\t\t\t[Timestamp]\t\t\t[ID]"
-    availablebuild = getallbuilds(applicationid)
-    for items in availablebuild:
-        if items["status"]=="success":
-            print ("%s\t%s\t%s" % (items["commit_hash"], items["push_timestamp"], items["id"]))
+    from build import listAvailableBuilds
+    listAvailableBuilds(applicationid)
     # print getallbuilds(applicationid)
     print
     COMMIT = raw_input("Enter hash to set: ")

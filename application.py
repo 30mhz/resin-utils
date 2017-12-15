@@ -31,8 +31,6 @@ def check(ID):
     builddetials = getBuildDetails(ID,data["commit"])
     print ("Push data:\t\t %s" % builddetials["push_timestamp"])
     print ("Build id:\t\t %s" % builddetials["id"])
-    print
-    print "Press a key to continue."
     #{u'depends_on__application': None, u'should_track_latest_release': True, u'app_name': u'NewMotherTemp', u'__metadata': {u'type': u'', u'uri': u'/resin/application(770949)'}, u'is_accessible_by_support_until__date': None, u'actor': 2083072, u'git_repository': u'resin15/newmothertemp', u'version': 1, u'user': {u'__deferred': {u'uri': u'/resin/user(8052)'}, u'__id': 8052}, u'device_type': u'beaglebone-black', u'commit': u'4c75e9991754cf4a440e0c6c9d3be45aa5401102', u'id': 770949}
     # ID: 890981
     # UUID: 2801325107d749c9f029fd3aa09f8063
@@ -45,7 +43,7 @@ def check(ID):
     # Public IP: 185.3.177.98
     return data
 
-def printapplicationdetails():
+def selectapplication():
     system("clear") # Linux - OSX only :(
     print ("Select Application to check settings:")
     print #newline
@@ -55,10 +53,47 @@ def printapplicationdetails():
         print ("%s\t%s" % (items[1], items[0]))
     print #newline
     ID = input("Please enter application ID: ")
+    return ID
+
+def printapplicationdetails():
+    ID = selectapplication()
     try:
         system("clear") # Linux - OSX only :(
         check(ID)
     except:
         print "Retrieve error."
-        print "Press a key to continue."
+        print
+    print "Press a key to continue."
+    readkey()
+    return ID
+
+def setrollingupdates():
+    ID = selectapplication()
+    check(ID)
+    from yesorno import query_yes_no
+    print
+    if query_yes_no("Do you want to disable rolling updates?", "yes"):
+        print "Disabling"
+        resin.models.application.disable_rolling_updates(ID)
+    else:
+        print
+        if query_yes_no("Do you want to re-enable rolling updates?", "no"):
+            print "Enabling"
+            resin.models.application.enable_rolling_updates(ID)
+        else:
+            print "Nothing done."
+    print "OK"
+    print "Press a key to continue."
+    readkey()
+
+def setbasecommit():
+    ID = selectapplication()
+    print
+    check(ID)
+    print
+    import build
+    build.listAvailableBuilds(ID)
+    print
+    buildID = build.getBuildID(ID, raw_input("Enter build Hash: "))
+    print buildID
     readkey()
