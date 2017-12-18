@@ -122,7 +122,7 @@ def setbuildUI(UUID, BuildHash):
     return
 
 def setbuild(UUID, BuildID):
-    resin.models.device.set_to_build(UUID, BuildID)
+    print resin.models.device.set_to_build(UUID, BuildID)
     return
 
 def setbuildinteractive():
@@ -138,7 +138,7 @@ def setbuildinteractive():
     print
     from build import listAvailableBuilds
     listAvailableBuilds(applicationid)
-    # print getallbuilds(applicationid)
+    # print getallbuilds(appli4cationid)
     print
     COMMIT = raw_input("Enter hash to set: ")
     setbuildUI(UUID, COMMIT)
@@ -146,42 +146,78 @@ def setbuildinteractive():
     readkey()
     # resin.models.device.set_to_build('8deb12a58e3b6d3920db1c2b6303d1ff32f23d5ab99781ce1dde6876e8d143', '123098')
 
+def setCurrentFixed(UUID):
+    device = resin.models.device.get(UUID)
+    from build import getBuildID
+    buildID = getBuildID(device['application']['__id'],device['commit'])
+    setbuild(UUID, buildID)
+    return device['commit']
+    # u'application': {u'__deferred': {u'uri': u'/resin/application(328080)'}, u'__id': 328080}
+
 def updateallinteractive():
     from yesorno import query_yes_no
     from application import selectapplication, check
     ID = selectapplication()
     system("clear")
     print
-    check(ID)
+    if check(ID) == None:
+        return
     print
-    from build import listAvailableBuilds,getBuildID
+    from build import listAvailableBuilds,getBuildID,getAllBuildHash
     listAvailableBuilds(ID)
     print
     BuildHash = raw_input("Enter build Hash: ")
-    BuildID = getBuildID(ID, BuildHash)
+    try:
+        BuildID = getBuildID(ID, BuildHash)
+    except:
+        print "Build not found."
+        return
     devices = get_by_application_id(ID)
-    print devices
-    print "Found {0} devices:".format(len(devices))
+    system("clear")
+    print ("Application: %s" % ID)
+    print ("Build: %s" % BuildID)
+    print ("Hash: %s" % BuildHash)
+    # print devices
+    print "Devices found: {0}".format(len(devices))
     print
-    print "Commit\t\t\t\t\t\tOnline\tCommit"
-    for device in devices:
-        online = False
-        if device['is_online'] == True:
-            online = True
-        print "{2}\t{1}\t{0}".format(device['name'], online, device['commit'])
+    allcommits = getAllBuildHash(ID)
+    def printdevices():
+        print "Commit\t\t\t\t\t\tOnline\tCommit"
+        for device in devices:
+            # print device
+            try:
+                commit = allcommits[device['build']['__id']]['commit_hash']
+            except:
+                commit = "None\t\t\t\t\t"
+            print "{2}\t{1}\t{0}".format(device['name'], device['is_online'], commit)
+    printdevices()
 
     print
     for device in devices:
-        if online:
+        # print device
+        if device['is_online'] == True:
             BuildHash
             if BuildHash != None and device['build']['__id'] == BuildID:
                 print "[{1}]\nSkipping device, it is already at commit {0}".format(BuildHash, device['name'])
             else:
-                if 
                  # ask user if she wants to update it
                 if query_yes_no("\n[{0}]\nDo you want to update the device?".format(device['name'])):
-                    # resin.models.supervisor.update(device['uuid'], device['application']['__id'], force=True)
+                    setbuild(device['uuid'], BuildID)
+                    # Old call but still handy :)
+                    resin.models.supervisor.update(device['uuid'], device['application']['__id'], force=True)
                     print
         else:
-            print ("[{0}]\nSkipping device, it's offline. ".format(device['name']))
+            print ("\n[{0}] is offline. ".format(device['name']))
+            if device['build'] == None:
+                if query_yes_no("And there is not build set. Set current software version as fixed build?"):
+                    try:
+                        commit = setCurrentFixed(device['uuid'])
+                        print "Device now set to commit {0}".format(commit)
+                    except:
+                        print "Error fixing current commit! Maybe device switched applications."
+            else:
+                print "Skipping device"
+    print "\n\nDone!"
+
+    print "\n\nPress a key to continue."
     readkey()

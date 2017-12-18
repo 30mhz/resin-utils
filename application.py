@@ -19,7 +19,12 @@ def list():
     return applications_uuid, applications_names
 
 def check(ID):
-    data = resin.models.application.get_by_id(ID)
+    try:
+        data = resin.models.application.get_by_id(ID)
+    except:
+        print "Application not found"
+        readkey()
+        return None
     print ("Aplication name:\t%s" % data["app_name"] )
     print ("Aplication ID:\t\t%s" % data["id"] )
     print ("URL:\t\t\thttps://dashboard.resin.io/apps/%s/devices" % data["id"])# https://dashboard.resin.io/apps/747385/devices
