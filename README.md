@@ -8,6 +8,10 @@
     - [Requirements](#requirements)
 - [Usage](#usage)
   - [Login](#login)
+  - [Update procedure](#update-procedure)
+    - [Step 1: Stop auto updating](#step-1-stop-auto-updating)
+    - [Step 2: Fix build version](#step-2-fix-build-version)
+    - [Step 3: Set a base commit](#step-3-set-a-base-commit)
   - [Menu](#menu)
     - [Get device list (UUID)](#get-device-list-uuid)
     - [Check device details (UUID)](#check-device-details-uuid)
@@ -18,10 +22,6 @@
     - [Set base commit application](#set-base-commit-application)
     - [Logout](#logout)
     - [Quit](#quit)
-  - [Update procedure](#update-procedure)
-    - [Step 1: Stop auto updating](#step-1-stop-auto-updating)
-    - [Step 2: Fix build version](#step-2-fix-build-version)
-    - [Step 3: Set a base commit](#step-3-set-a-base-commit)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
