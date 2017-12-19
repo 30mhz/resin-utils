@@ -1,3 +1,26 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [resin-utils](#resin-utils)
+  - [Running with docker](#running-with-docker)
+  - [Running Locally](#running-locally)
+    - [Requirements](#requirements)
+- [Usage](#usage)
+  - [Login](#login)
+  - [Menu](#menu)
+    - [Get device list (UUID)](#get-device-list-uuid)
+    - [Check device details (UUID)](#check-device-details-uuid)
+    - [Update one device](#update-one-device)
+    - [Update an entire application (One by one)](#update-an-entire-application-one-by-one)
+    - [Check application settings](#check-application-settings)
+    - [Swith rolling updates](#swith-rolling-updates)
+    - [Set base commit application](#set-base-commit-application)
+    - [Logout](#logout)
+    - [Quit](#quit)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # resin-utils
 Utilities for working with rolling updates in combination with Resin.io. Utilizing settings build version and applications that not following the latest commit to Resin.
 
