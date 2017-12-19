@@ -65,6 +65,22 @@ Token:
 
 ```
 
+
+## Update procedure
+Follow this procedure to make sure each device updates to the version you want.
+
+### Step 1: Stop auto updating
+Resin will alway's try to update all devices to the latest softwarepush. If not disabled the default application will always equel the latest push. 
+
+To stop this toggle the `rolling updates` to `false` with `Switch rolling updates` and current states of rolling update can be checked with `Check application settings`
+
+### Step 2: Fix build version
+Make shure that all devices have a (or current) build fixed in there registers. Default is `None`.
+This can be done by running `Update an entire application (One by one)` with a version until all have a value set.
+
+### Step 3: Set a base commit
+Setting a base commit on the application can change the version new devices start with, since there build register will contain `None`.
+
 ## Menu
 
 ```
@@ -379,19 +395,5 @@ You don't have to logout this script. But for changing account, a logout is need
 ### Quit
 Cleanly quit the program
 
-## Update procedure
-Follow this procedure to make sure each device updates to the version you want.
-
-### Step 1: Stop auto updating
-Resin will alway's try to update all devices to the latest softwarepush. If not disabled the default application will always equel the latest push. 
-
-To stop this toggle the `rolling updates` to `false` with `Switch rolling updates` and current states of rolling update can be checked with `Check application settings`
-
-### Step 2: Fix build version
-Make shure that all devices have a (or current) build fixed in there registers. Default is `None`.
-This can be done by running `Update an entire application (One by one)` with a version until all have a value set.
-
-### Step 3: Set a base commit
-Setting a base commit on the application can change the version new devices start with, since there build register will contain `None`.
 
 
