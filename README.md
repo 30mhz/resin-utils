@@ -37,7 +37,6 @@ To run with docker (make sure docker is started) simply enter:
 ./run.sh
 ```
 
-
 ## Running Locally
 
 To run it with Python use Python 2.
@@ -46,7 +45,7 @@ python2 start.py
 ```
 
 ### Requirements
-Make shure you meet de following requirements:
+Make sure you meet de following requirements:
 
 Pyhton 2 is installed
 Install resin cli with `pip` or `pip2 install git+https://github.com/resin-io/resin-sdk-python.git`
@@ -75,7 +74,7 @@ Resin will alway's try to update all devices to the latest softwarepush. If not 
 To stop this toggle the `rolling updates` to `false` with `Switch rolling updates` and current states of rolling update can be checked with `Check application settings`
 
 ### Step 2: Fix build version
-Make shure that all devices have a (or current) build fixed in there registers. Default is `None`.
+Make sure that all devices have a (or current) build fixed in there registers. Default is `None`.
 This can be done by running `Update an entire application (One by one)` with a version until all have a value set.
 
 ### Step 3: Set a base commit
@@ -113,7 +112,7 @@ This can be used to pick an UUID for checking details on.
 Press enter to return to the main menu.
 
 ### Check device details (UUID)
-With an UUID (retrieved with above function) all details of this perticulair device can be shown.
+With an UUID (retrieved with above function) all details of this particulair device can be shown.
 
 ```
 Device name: lingering-sunset
@@ -181,7 +180,7 @@ df1a0ff51d4ac0d34f1bf94cb48d83de67b27f32	2017-12-06T11:33:58.442Z	728363
 
 Enter hash to set: 
 ```
-Pick a build hash of the succesfull builds, from either the Dashboard or this list.
+Pick a build hash of the successfull builds, from either the Dashboard or this list.
 
 ```
 Setting build:
@@ -277,7 +276,7 @@ If a device is offline it will be skipped:
 Skipping device
 ```
 
-If the perticulair build is already set, it will be skipped too:
+If the particulair build is already set, it will be skipped too:
 ```
 [misty-breeze]
 Skipping device, it is already at commit b91b6e267eada7de9c2f67b27e6db6bc44202fds
