@@ -76,7 +76,7 @@ while True:
     print ("3 Update one device")
     print ("4 Update an entire application (One by one)")
     print ("5 Check application settings")
-    print ("6 Swith rolling updates")
+    print ("6 Switch rolling updates")
     print ("7 Set base commit application")
     print ("9 Logout")
     print ("0 Quit")
