@@ -138,7 +138,7 @@ df1a0ff51d4ac0d34f1bf94cb48d83de67b27f32	2017-12-06T11:33:58.442Z	728363
 
 Enter hash to set: 
 ```
-Pick a build hash of the succesfull builds, form either the Dashboard or this list.
+Pick a build hash of the succesfull builds, from either the Dashboard or this list.
 
 ```
 Setting build:
@@ -179,42 +179,177 @@ Press a key to continue
 
 ```
 
-
-
 ### Update an entire application (One by one)
-### Check application settings
-### Swith rolling updates
-### Set base commit application
-### Logout
-### Quit
 
-
-Update the devices in an application (or a particular device).
-
-The script will prompt for each device in the application which is online if it should be updated or not. It overrides the device lock (/data/resin-updates.lock).
-
-```bash
-$ python resin_devices_update.py --help
-usage: resin_devices_update.py [-h] [-u USERNAME] [-p PASSWORD]
-                               [-ra RESIN_APPLICATION] [-co COMMIT]
-                               [-d DEVICE]
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -u USERNAME, --username USERNAME
-                        Resin username (email)
-  -p PASSWORD, --password PASSWORD
-                        Resin password
-  -ra RESIN_APPLICATION, --resin-application RESIN_APPLICATION
-                        Resin application to update
-  -co COMMIT, --commit COMMIT
-                        Optional. The commit that the devices will be updated
-                        to. If present, it will not try to update the devices
-                        that are already in that commit.
-  -d DEVICE, --device DEVICE
-                        UUID of the device to update. You can use this option
-                        to update only one device instead of --resin-
-                        application which updates all the devices from an
-                        application.
+Same as the above, but then for a whole application. The script will prompt for each device in the application which is online if it should be updated or not. It overrides the device lock (/data/resin-updates.lock).
 
 ```
+Select Application to check settings:
+
+ID	NAME
+306681	NewMother
+
+Please enter application ID: 
+```
+
+
+```
+Aplication name:	NewMother
+Aplication ID:		306681
+URL:			https://dashboard.resin.io/apps/306681/devices
+
+Rolling updates enabled: True
+
+Default software:	 b91b6e267eada7de9c2f67b27e6db6bc44202fds
+Push data:		 2017-12-06T11:48:02.375Z
+Build id:		 734928
+
+Available build options:
+[Hash]						[Timestamp]			[ID]
+b91b6e267eada7de9c2f67b27e6db6bc44202fds	2017-12-06T11:48:02.375Z	734928
+df1a0ff51d4ac0d34f1bf94cb48d83de67b27f32	2017-12-06T11:33:58.442Z	728363
+5b6751ef1bf94cb48d83defa8dbf0ef1ada7de97	2017-11-28T19:21:12.860Z	716739
+1f55e6261fc3ce3df1a0ff51d4ac0d349c2f67bd	2017-11-28T14:24:08.209Z	707345
+
+Enter hash to set: 
+```
+
+```
+Application: 306681
+Build: 734928
+Hash: b91b6e267eada7de9c2f67b27e6db6bc44202fds
+Devices found: 4
+```
+
+For each device that is online, it can be decided to update or not.
+
+```
+[New mother demo]
+Do you want to update the device? [Y/n] 
+```
+
+If a device is offline it will be skipped:
+```
+[quiet-mountain] is offline. 
+Skipping device
+```
+
+If the perticulair build is already set, it will be skipped too:
+```
+[misty-breeze]
+Skipping device, it is already at commit b91b6e267eada7de9c2f67b27e6db6bc44202fds
+```
+
+When a device is offline and no build is set. It is still important to set a build. Therefore current software can be set as build:
+
+```
+[lingering-sunset] is offline. 
+And there is not build set. Set current software version as fixed build? [Y/n] 
+```
+
+### Check application settings
+```
+Select Application to check settings:
+
+ID	NAME
+306681	NewMother
+
+Please enter application ID: 
+```
+```
+Aplication name:	NewMother
+Aplication ID:		306681
+URL:			https://dashboard.resin.io/apps/306681/devices
+
+Rolling updates enabled: True
+
+Default software:	 b91b6e267eada7de9c2f67b27e6db6bc44202fds
+Push data:		 2017-12-06T11:48:02.375Z
+Build id:		 734928
+Press a key to continue.
+```
+
+### Swith rolling updates
+
+```
+Select Application to check settings:
+
+ID	NAME
+306681	NewMother
+
+Please enter application ID: 
+```
+```
+Aplication name:	NewMother
+Aplication ID:		306681
+URL:			https://dashboard.resin.io/apps/306681/devices
+
+Rolling updates enabled: True
+
+Default software:	 b91b6e267eada7de9c2f67b27e6db6bc44202fds
+Push data:		 2017-12-06T11:48:02.375Z
+Build id:		 734928
+
+Do you want to disable rolling updates? [Y/n] 
+```
+```
+Disabling
+OK
+Press a key to continue.
+```
+
+### Set base commit application
+```
+Select Application to check settings:
+
+ID	NAME
+306681	NewMother
+
+Please enter application ID: 
+```
+
+
+```
+Aplication name:	NewMother
+Aplication ID:		306681
+URL:			https://dashboard.resin.io/apps/306681/devices
+
+Rolling updates enabled: True
+
+Default software:	 b91b6e267eada7de9c2f67b27e6db6bc44202fds
+Push data:		 2017-12-06T11:48:02.375Z
+Build id:		 734928
+
+Available build options:
+[Hash]						[Timestamp]			[ID]
+b91b6e267eada7de9c2f67b27e6db6bc44202fds	2017-12-06T11:48:02.375Z	734928
+df1a0ff51d4ac0d34f1bf94cb48d83de67b27f32	2017-12-06T11:33:58.442Z	728363
+5b6751ef1bf94cb48d83defa8dbf0ef1ada7de97	2017-11-28T19:21:12.860Z	716739
+1f55e6261fc3ce3df1a0ff51d4ac0d349c2f67bd	2017-11-28T14:24:08.209Z	707345
+
+Enter build Hash: 
+```
+```
+OK
+
+Aplication name:	NewMother
+Aplication ID:		306681
+URL:			https://dashboard.resin.io/apps/306681/devices
+
+Rolling updates enabled: True
+
+Default software:	 b91b6e267eada7de9c2f67b27e6db6bc44202fds
+Push data:		 2017-12-06T11:48:02.375Z
+Build id:		 734928
+
+Default commit changed!
+Press a key to continue.
+```
+
+### Logout
+You don't have to logout this script. But for changing account, a logout is need. 
+
+### Quit
+Cleanly quit the program
+
+
