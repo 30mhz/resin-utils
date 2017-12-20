@@ -70,14 +70,17 @@ def selectapplication():
 
 # function 'Check application settings' that prints applicaiton details
 def printapplicationdetails():
+    from build import listAvailableBuilds
     ID = selectapplication()
     try:
         system("clear") # Linux - OSX only :(
         check(ID)
+        print
+        listAvailableBuilds(ID)
     except:
         print "Retrieve error."
         print
-    print "Press a key to continue."
+    print "\nPress a key to continue."
     readkey()
     return ID
 
