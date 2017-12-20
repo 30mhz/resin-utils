@@ -222,14 +222,14 @@ def updateallinteractive():
                 print "[{1}]\nSkipping device, it is already at commit {0}".format(BuildHash, device['name'])
             else:
                  # ask user if she wants to update it
-                if query_yes_no("\n[{0}]\nDo you want to update the device?".format(device['name'])):
+                if query_yes_no("\n[{0}]\nDo you want to update the device?".format(device['name']),"no"):
                     setbuild(device['uuid'], BuildID)
                     # Old call but still handy :)
                     resin.models.supervisor.update(device['uuid'], device['application']['__id'], force=True)
                     print
         elif device['is_online'] == True and device['build'] == None:
             print ("\n[{0}] is online but no build is set. ".format(device['name']))
-            if query_yes_no("Set current software version as fixed build?"):
+            if query_yes_no("Set current software version as fixed build?","no"):
                 try:
                     commit = setCurrentFixed(device['uuid'])
                     print "Device now set to commit {0}".format(commit)
@@ -238,7 +238,7 @@ def updateallinteractive():
         else:
             print ("\n[{0}] is offline. ".format(device['name']))
             if device['build'] == None:
-                if query_yes_no("And there is not build set. Set current software version as fixed build?"):
+                if query_yes_no("And there is not build set. Set current software version as fixed build?","no"):
                     try:
                         commit = setCurrentFixed(device['uuid'])
                         print "Device now set to commit {0}".format(commit)
