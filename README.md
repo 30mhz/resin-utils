@@ -12,6 +12,7 @@
     - [Step 1: Stop auto updating](#step-1-stop-auto-updating)
     - [Step 2: Fix build version](#step-2-fix-build-version)
     - [Step 3: Set a base commit](#step-3-set-a-base-commit)
+    - [Step 4: Start updating](#step-4-start-updating)
   - [Menu](#menu)
     - [Get device list (UUID)](#get-device-list-uuid)
     - [Check device details (UUID)](#check-device-details-uuid)
