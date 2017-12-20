@@ -1,8 +1,20 @@
 #!/usr/bin/env python
 
-from resin import Resin
+"""
+Part of update set for Resin used by 30MHz
+
+Resin Python SDK login script.
+
+A: Fokko
+E: fokko@30MHz.com
+D: 20 Dec 2017
+"""
+
+
 from os import system
 
+# Loading Resin Python SDK
+from resin import Resin
 resin = Resin()
 
 def login():

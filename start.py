@@ -1,3 +1,13 @@
+"""
+Part of update set for Resin used by 30MHz
+
+Start menu presenting all available options with a one key press prompt.
+
+A: Fokko
+E: fokko@30MHz.com
+D: 20 Dec 2017
+"""
+
 
 # Login
 from login import login
@@ -5,9 +15,13 @@ login()
 
 from readchar import readkey
 from os import system
+
+# Loading Resin Python SDK
 from resin import Resin
 resin = Resin()
 
+
+# Define and import all functions
 def logout():
     from logout import logout
     logout()
@@ -21,10 +35,6 @@ def devlist():
 def details():
     from devices import printdetails
     printdetails()
-    return
-
-def application_update():
-    # import application_update
     return
 
 def application_check():
@@ -56,6 +66,7 @@ def quit():
     system("clear") # Linux - OSX only :(
     exit()
 
+# Set all available options
 while True:
     options = {
         "9" : logout,
@@ -69,8 +80,10 @@ while True:
         "4" : do_updateallinteractive
         }
 
+    # clear screen
     system("clear") # Linux - OSX only :(
 
+    # print instructions
     print ("1 Get device list (UUID)")
     print ("2 Check device details (UUID)")
     print ("3 Update one device")
@@ -83,6 +96,7 @@ while True:
     print
     print ("Run:  ")
 
+    # Wait for keypress
     while True:
         try:
             options[readkey()]()

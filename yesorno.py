@@ -1,4 +1,13 @@
-# from http://code.activestate.com/recipes/577058-query-yesno/
+"""
+Part of update set for Resin used by 30MHz
+
+By Trent Mick adapted from http://code.activestate.com/recipes/577058-query-yesno/
+Slighly adapted to return true of false
+
+A: Fokko
+E: fokko@30MHz.com
+D: 20 Dec 2017
+"""
 
 def query_yes_no(question, default="yes"):
     """Ask a yes/no question via raw_input() and return their answer.

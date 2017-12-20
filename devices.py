@@ -1,10 +1,27 @@
-from os import system
-from readchar import readkey
-import operator
+"""
+Part of update set for Resin used by 30MHz
+
+All functions related to managing devices settings. Serving the functions:
+- Get device list (UUID): devicelist()
+- Check device details (UUID): printdetails()
+- Update one device: setbuildinteractive()
+- Update an entire application (One by one): updateallinteractive()
+
+A: Fokko
+E: fokko@30MHz.com
+D: 20 Dec 2017
+"""
+
+
+from os import system # for clear
+from readchar import readkey # to get a keypress
+import operator # for sorting
+
+# Loading Resin Python SDK
 from resin import Resin
 resin = Resin()
 
-
+# Helper function to return complete device list from available for this user
 def get():
     devices = resin.models.device.get_all()
     return devices
@@ -17,6 +34,7 @@ def get_by_application_id(ID):
         devices = None
     return devices
 
+# Helper function to get devices list and sort it on alphabetical order.
 def devlist():
     devices = get()
     devices_uuid = {}
@@ -27,19 +45,22 @@ def devlist():
     devices_names = sorted(devices_names.items(), key=operator.itemgetter(0))
     return devices_names
 
+# Helper function to actually print the device list
 def printlist(devices_names):
     for items in devices_names:
         print [items][0][0]
     return
 
+# Helper function to actually update a device
 def update(UUID, BuildID):
     status = resin.models.device.set_to_build('UUID', 'BuildID')
     return status
 
+# Helper function to retreive applications name in device details list.
 def getApplicationDetails(applicationid):
     return resin.models.application.get_by_id(applicationid)["app_name"]
 
-
+# Helper function to show build details in device details list.
 def getBuildDetails(buildid):
     if buildid is None:
         return "None"
@@ -47,11 +68,7 @@ def getBuildDetails(buildid):
     details = "\n\n\tBuild ID: \t%s \n\tBuild hash: \t%s \n\tDate: \t\t%s" % (buildid["__id"], data["d"][0]["commit_hash"], data["d"][0]["push_timestamp"])
     return details
 
-
-
-def getapplicationid(UUID):
-    return resin.models.device.get(UUID)["application"]["__id"]
-
+# Helper function that prints the actual device details
 def details(uuid):
     data = resin.models.device.get(uuid)
     print ("Device name: %s" % data["name"])
@@ -75,15 +92,14 @@ def details(uuid):
     print ("Created on: %s" % data["created_at"])
     return data["application"]["__id"]
 
+# Function 'Get device list (UUID)' that prints all devices in alphabetical order.
 def devicelist():
     system("clear") # Linux - OSX only :(
     for items in devlist():
         print ("%s\t%s" % (items[1],items[0]))
-    # print ("Devices:")
-    # readkey()
-    # system("clear") # Linux - OSX only :(
     raw_input ("Press enter to continue")
 
+# Function 'Check device details (UUID)' that prints device details.
 def printdetails():
     system("clear") # Linux - OSX only :(
     print ("Check device UUID on dashboard or go one step back and select \"Get device list\"")
@@ -99,6 +115,11 @@ def printdetails():
         print("UUID not corect or device not found. Press a key to continue.")
         readkey()
 
+# Helper fucntion to get the application id from a UUID
+def getapplicationid(UUID):
+    return resin.models.device.get(UUID)["application"]["__id"]
+
+# Helper function that shows the print while setting a specific build
 def setbuildUI(UUID, BuildHash):
     print
     print "Setting build:"
@@ -121,10 +142,12 @@ def setbuildUI(UUID, BuildHash):
     print "Press a key to continue"
     return
 
+# Helper function that actually sets the specific build
 def setbuild(UUID, BuildID):
     print resin.models.device.set_to_build(UUID, BuildID)
     return
 
+# function 'Update one device:' to update one device at a time
 def setbuildinteractive():
     system("clear") # Linux - OSX only :(
     UUID = raw_input("Enter device UUID to update: ")
@@ -138,14 +161,12 @@ def setbuildinteractive():
     print
     from build import listAvailableBuilds
     listAvailableBuilds(applicationid)
-    # print getallbuilds(appli4cationid)
     print
     COMMIT = raw_input("Enter hash to set: ")
     setbuildUI(UUID, COMMIT)
-
     readkey()
-    # resin.models.device.set_to_build('8deb12a58e3b6d3920db1c2b6303d1ff32f23d5ab99781ce1dde6876e8d143', '123098')
 
+# Helper function to fix current software function in build parameter
 def setCurrentFixed(UUID):
     device = resin.models.device.get(UUID)
     from build import getBuildID
@@ -154,6 +175,7 @@ def setCurrentFixed(UUID):
     return device['commit']
     # u'application': {u'__deferred': {u'uri': u'/resin/application(328080)'}, u'__id': 328080}
 
+# function 'Update an entire application (One by one):' interactively asking to update each device in a application
 def updateallinteractive():
     from yesorno import query_yes_no
     from application import selectapplication, check
@@ -191,7 +213,6 @@ def updateallinteractive():
                 commit = "None\t\t\t\t\t"
             print "{2}\t{1}\t{0}".format(device['name'], device['is_online'], commit)
     printdevices()
-
     print
     for device in devices:
         # print device
