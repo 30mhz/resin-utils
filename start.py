@@ -1,3 +1,6 @@
+#!/usr/bin/env python2
+
+
 """
 Part of update set for Resin used by 30MHz
 
