@@ -80,6 +80,9 @@ This can be done by running `Update an entire application (One by one)` with a v
 ### Step 3: Set a base commit
 Setting a base commit on the application can change the version new devices start with, since there build register will contain `None`.
 
+### Step 4: Start updating
+Update all devices accordingly, using update either one device or an entire application
+
 ## Menu
 
 ```
