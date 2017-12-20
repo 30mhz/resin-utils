@@ -100,7 +100,7 @@ Update all devices accordingly, using update either one device or an entire appl
 Run:  
 ```
 
-Press the corresponding number the function you want to run.
+Press the corresponding number of the function you want to run.
 
 ### Get device list (UUID)
 This function will return all Resin devices with the corresponding UUID sorted on device name:
