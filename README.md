@@ -274,6 +274,16 @@ For each device that is online, it can be decided to update or not.
 Do you want to update the device? [Y/n]
 ```
 
+If the device is online but no build is set you can only set it to current version. Run the program again to update it. 
+```
+[bluecasing Resin 2] is online but no build is set. 
+Set current software version as fixed build? [Y/n] 
+
+OK
+Device now set to commit b91b6e267eada7de9c2f67b27e6db6bc44202fds
+
+```
+
 If a device is offline it will be skipped:
 ```
 [quiet-mountain] is offline.
