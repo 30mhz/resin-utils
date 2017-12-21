@@ -49,8 +49,16 @@ python2 start.py
 Make sure you meet de following requirements:
 
 Pyhton 2 is installed
-Install resin cli with `pip` or `pip2 install git+https://github.com/resin-io/resin-sdk-python.git`
-`pip` or `pip2 install readchar`
+
+#### Resin CLI
+Install resin cli with 
+```pip install git+https://github.com/resin-io/resin-sdk-python.git``` 
+or 
+```pip2 install git+https://github.com/resin-io/resin-sdk-python.git```
+
+#### readchar
+
+```pip install readchar``` or ```pip2 install readchar```
 
 # Usage
 
