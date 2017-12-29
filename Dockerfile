@@ -4,7 +4,7 @@
 
 FROM python:2
 
-RUN pip install git+https://github.com/resin-io/resin-sdk-python.git
+RUN pip install git+https://github.com/resin-io/resin-sdk-python.git@v1.6.3
 
 RUN pip install readchar
 
