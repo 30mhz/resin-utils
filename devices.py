@@ -82,15 +82,15 @@ def details(uuid):
     print ("Local IP: %s" % data["ip_address"])
     print ("Public IP: %s" % data["public_address"])
     print
-    print ("Application: %s" % getApplicationDetails(data["application"]["__id"]))
-    print ("Build set: %s" % getBuildDetails(data["build"]))
+    print ("Application: %s" % getApplicationDetails(data["belongs_to__application"]["__id"]))
+    print ("Build set: %s" % getBuildDetails(data["should_be_running__build"]))
     print
-    print ("Commit: %s" % data["commit"])
+    print ("Commit: %s" % data["is_on__commit"])
     print ("OS: %s" % data["os_version"])
     print ("Supervisor: %s" % data["supervisor_version"])
     print
     print ("Created on: %s" % data["created_at"])
-    return data["application"]["__id"]
+    return data["belongs_to__application"]["__id"]
 
 # Function 'Get device list (UUID)' that prints all devices in alphabetical order.
 def devicelist():
@@ -170,7 +170,7 @@ def setbuildinteractive():
 def setCurrentFixed(UUID):
     device = resin.models.device.get(UUID)
     from build import getBuildID
-    buildID = getBuildID(device['application']['__id'],device['commit'])
+    buildID = getBuildID(device['belongs_to__application']['__id'],device['commit'])
     setbuild(UUID, buildID)
     return device['commit']
     # u'application': {u'__deferred': {u'uri': u'/resin/application(328080)'}, u'__id': 328080}
@@ -208,7 +208,7 @@ def updateallinteractive():
         for device in devices:
             # print device
             try:
-                commit = allcommits[device['build']['__id']]['commit_hash']
+                commit = allcommits[device['should_be_running__build']['__id']]['commit_hash']
             except:
                 commit = "None\t\t\t\t\t"
             print "{2}\t{1}\t{0}".format(device['name'], device['is_online'], commit)
@@ -216,18 +216,18 @@ def updateallinteractive():
     print
     for device in devices:
         # print device
-        if device['is_online'] == True and device['build'] != None:
+        if device['is_online'] == True and device['should_be_running__build'] != None:
             # print BuildHash
-            if BuildHash != None and device['build']['__id'] == BuildID:
+            if BuildHash != None and device['should_be_running__build']['__id'] == BuildID:
                 print "[{1}]\nSkipping device, it is already at commit {0}".format(BuildHash, device['name'])
             else:
                  # ask user if she wants to update it
                 if query_yes_no("\n[{0}]\nDo you want to update the device?".format(device['name']),"no"):
                     setbuild(device['uuid'], BuildID)
                     # Old call but still handy :)
-                    resin.models.supervisor.update(device['uuid'], device['application']['__id'], force=True)
+                    resin.models.supervisor.update(device['uuid'], device['belongs_to__application']['__id'], force=True)
                     print
-        elif device['is_online'] == True and device['build'] == None:
+        elif device['is_online'] == True and device['should_be_running__build'] == None:
             print ("\n[{0}] is online but no build is set. ".format(device['name']))
             if query_yes_no("Set current software version as fixed build?","no"):
                 try:
@@ -237,7 +237,7 @@ def updateallinteractive():
                     print "Error fixing current commit! Maybe device switched applications."
         else:
             print ("\n[{0}] is offline. ".format(device['name']))
-            if device['build'] == None:
+            if device['should_be_running__build'] == None:
                 if query_yes_no("And there is not build set. Set current software version as fixed build?","no"):
                     try:
                         commit = setCurrentFixed(device['uuid'])
