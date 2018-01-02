@@ -52,9 +52,16 @@ Pyhton 2 is installed
 
 #### Resin CLI
 Install resin cli with 
-```pip install git+https://github.com/resin-io/resin-sdk-python.git``` 
+
+```
+pip install git+https://github.com/resin-io/resin-sdk-python.git@v1.6.3
+``` 
+
 or 
-```pip2 install git+https://github.com/resin-io/resin-sdk-python.git```
+
+```
+pip2 install git+https://github.com/resin-io/resin-sdk-python.git@v1.6.3
+```
 
 #### readchar
 
