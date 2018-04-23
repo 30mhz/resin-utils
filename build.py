@@ -45,7 +45,10 @@ def listAvailableBuilds(applicationid):
     print "Available build options:"
     print "[Hash]\t\t\t\t\t\t[Timestamp]\t\t\t[ID]"
     availablebuild = getallbuilds(applicationid)
+    successfull_builds = {}
     for items in availablebuild:
         if items["status"]=="success":
-            print ("%s\t%s\t%s" % (items["commit_hash"], items["push_timestamp"], items["id"]))
+            successfull_builds.update({items["id"]: items})
+    for items in sorted(successfull_builds):
+        print ("%s\t%s\t%s" % (successfull_builds[items]["commit_hash"], successfull_builds[items]["push_timestamp"], successfull_builds[items]["id"]))
     return
