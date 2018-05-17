@@ -50,14 +50,14 @@ Make sure you meet de following requirements:
 
 Pyhton 2 is installed
 
-#### Resin CLI
-Install resin cli with 
+#### Resin Python SDK v1.6.3
+Install resin python sdk with 
 
 ```
 pip install git+https://github.com/resin-io/resin-sdk-python.git@v1.6.3
-``` 
+```
 
-or 
+or
 
 ```
 pip2 install git+https://github.com/resin-io/resin-sdk-python.git@v1.6.3
@@ -289,10 +289,10 @@ For each device that is online, it can be decided to update or not.
 Do you want to update the device? [Y/n]
 ```
 
-If the device is online but no build is set you can only set it to current version. Run the program again to update it. 
+If the device is online but no build is set you can only set it to current version. Run the program again to update it.
 ```
-[bluecasing Resin 2] is online but no build is set. 
-Set current software version as fixed build? [Y/n] 
+[bluecasing Resin 2] is online but no build is set.
+Set current software version as fixed build? [Y/n]
 
 OK
 Device now set to commit b91b6e267eada7de9c2f67b27e6db6bc44202fds
