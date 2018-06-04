@@ -247,6 +247,96 @@ def updateallinteractive():
             else:
                 print "Skipping device"
     print "\n\nDone!"
-
     print "\n\nPress a key to continue."
     readkey()
+
+def updateallinteractiveplusvariable():
+        from yesorno import query_yes_no
+        from application import selectapplication, check
+        ID = selectapplication()
+        system("clear")
+        print
+        if check(ID) == None:
+            return
+        print
+        from build import listAvailableBuilds,getBuildID,getAllBuildHash
+        listAvailableBuilds(ID)
+        print
+        BuildHash = raw_input("Enter build Hash: ")
+        try:
+            BuildID = getBuildID(ID, BuildHash)
+        except:
+            print "Build not found."
+            return
+        VariableToSet = raw_input("Enter variable to set: ")
+        ValueToSet = raw_input("Enter variable value to set: ")
+        devices = get_by_application_id(ID)
+        system("clear")
+        print ("Application: %s" % ID)
+        print ("Build: %s" % BuildID)
+        print ("Hash: %s" % BuildHash)
+        # print devices
+        print "Devices found: {0}".format(len(devices))
+        print
+        allcommits = getAllBuildHash(ID)
+        def printdevices():
+            print "Commit\t\t\t\t\t\tOnline\tCommit"
+            for device in devices:
+                # print device
+                try:
+                    commit = allcommits[device['build']['__id']]['commit_hash']
+                except:
+                    commit = "None\t\t\t\t\t"
+                print "{2}\t{1}\t{0}".format(device['name'], device['is_online'], commit)
+        printdevices()
+        print
+        for device in devices:
+            # print device
+            if device['is_online'] == True and device['build'] != None:
+                # print BuildHash
+                if BuildHash != None and device['build']['__id'] == BuildID:
+                    print "[{1}]\nSkipping device, it is already at commit {0}".format(BuildHash, device['name'])
+                else:
+                     # ask user if she wants to update it
+                    if query_yes_no("\n[{0}]\nDo you want to update the device?".format(device['name']),"no"):
+                        setbuild(device['uuid'], BuildID)
+                        CurrentVariables = resin.models.environment_variables.device.get_all(device['uuid'])
+                        CurrentVariablesNames = {}
+                        for items in CurrentVariables:
+                            CurrentVariablesNames[items['env_var_name']] = items
+                        if VariableToSet in CurrentVariablesNames:
+                            VariableExists = True
+                            print ("Current value of %s = %s" %(VariableToSet, CurrentVariablesNames[VariableToSet]['value']))
+                        else:
+                            VariableExists = False
+                            print ("%s is not set on this device." % VariableToSet)
+                        if query_yes_no("Do you want to set/update this variable?","no"):
+                            if VariableExists:
+                                resin.models.environment_variables.device.update(CurrentVariablesNames[VariableToSet]['id'], ValueToSet)
+                            else:
+                                resin.models.environment_variables.device.create(device['uuid'], VariableToSet, ValueToSet)
+                        # Old call but still handy :)
+                        resin.models.supervisor.update(device['uuid'], device['application']['__id'], force=True)
+                        print
+            elif device['is_online'] == True and device['build'] == None:
+                print ("\n[{0}] is online but no build is set. ".format(device['name']))
+                if query_yes_no("Set current software version as fixed build?","no"):
+                    try:
+                        commit = setCurrentFixed(device['uuid'])
+                        print "Device now set to commit {0}".format(commit)
+                    except:
+                        print "Error fixing current commit! Maybe device switched applications."
+            else:
+                print ("\n[{0}] is offline. ".format(device['name']))
+                if device['build'] == None:
+                    if query_yes_no("And there is not build set. Set current software version as fixed build?","no"):
+                        try:
+                            commit = setCurrentFixed(device['uuid'])
+                            print "Device now set to commit {0}".format(commit)
+                        except:
+                            print "Error fixing current commit! Maybe device switched applications."
+                else:
+                    print "Skipping device"
+        print "\n\nDone!"
+        print "\n\nPress a key to continue."
+        readkey()

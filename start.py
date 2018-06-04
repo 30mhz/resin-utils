@@ -65,6 +65,11 @@ def do_updateallinteractive():
     updateallinteractive()
     return
 
+def do_updateallinteractiveANDvariable():
+    from devices import updateallinteractiveplusvariable
+    updateallinteractiveplusvariable()
+    return
+
 def quit():
     system("clear") # Linux - OSX only :(
     exit()
@@ -76,11 +81,12 @@ while True:
         "0" : quit,
         "1" : devlist,
         "2" : details,
-        "5" : application_check,
+        "4" : application_check,
         "3" : update_device,
-        "6" : switch_rolling,
-        "7" : set_basecommit,
-        "4" : do_updateallinteractive
+        "7" : switch_rolling,
+        "8" : set_basecommit,
+        "5" : do_updateallinteractive,
+        "6" : do_updateallinteractiveANDvariable
         }
 
     # clear screen
@@ -90,10 +96,11 @@ while True:
     print ("1 Get device list (UUID)")
     print ("2 Check device details (UUID)")
     print ("3 Update one device")
-    print ("4 Update an entire application (One by one)")
-    print ("5 Check application settings")
-    print ("6 Switch rolling updates")
-    print ("7 Set base commit application")
+    print ("4 Check application settings")
+    print ("5 Update an entire application (One by one)")
+    print ("6 Update an entire application with variable")
+    print ("7 Switch rolling updates")
+    print ("8 Set base commit application")
     print ("9 Logout")
     print ("0 Quit")
     print
